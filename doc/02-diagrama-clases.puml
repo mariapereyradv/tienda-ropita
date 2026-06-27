@@ -1,0 +1,131 @@
+@startuml
+
+title Tienda Ropita - Diagrama de Clases
+
+' ─────────────────────────────
+' ENUMERADOS
+' ─────────────────────────────
+
+enum TipoPrenda {
+    SACO
+    CAMISA
+    PANTALON
+}
+
+enum EstadoPrenda {
+    NUEVA
+    PROMOCION
+    LIQUIDACION
+}
+
+' ─────────────────────────────
+' STRATEGY - Calculo de precio
+' ─────────────────────────────
+
+interface EstadoPrendaStrategy {
+    + calcularPrecio(precioBase: Double): Double
+}
+
+class PrendaNueva {
+    + calcularPrecio(precioBase: Double): Double
+}
+
+class PrendaPromocion {
+    - descuento: Double
+    + calcularPrecio(precioBase: Double): Double
+}
+
+class PrendaLiquidacion {
+    - PORCENTAJE: Double = 0.50
+    + calcularPrecio(precioBase: Double): Double
+}
+
+EstadoPrendaStrategy <|.. PrendaNueva
+EstadoPrendaStrategy <|.. PrendaPromocion
+EstadoPrendaStrategy <|.. PrendaLiquidacion
+
+' ─────────────────────────────
+' PRENDA
+' ─────────────────────────────
+
+class Prenda {
+    - id: Long
+    - nombre: String
+    - precioBase: Double
+    - tipo: TipoPrenda
+    - estado: EstadoPrenda
+    - stock: Integer
+    - estrategia: EstadoPrendaStrategy
+    + calcularPrecio(): Double
+    + agregarStock(cantidad: Integer): void
+    + descontarStock(cantidad: Integer): void
+}
+
+Prenda --> TipoPrenda
+Prenda --> EstadoPrenda
+Prenda --> EstadoPrendaStrategy
+
+' ─────────────────────────────
+' DETALLE VENTA
+' ─────────────────────────────
+
+class DetalleVenta {
+    - id: Long
+    - prenda: Prenda
+    - cantidad: Integer
+}
+
+DetalleVenta --> Prenda
+
+' ─────────────────────────────
+' VENTA
+' ─────────────────────────────
+
+abstract class Venta {
+    - id: Long
+    - fecha: Date
+    - detalles: List<DetalleVenta>
+    - total: Double
+    + calcularTotal(): Double
+}
+
+class VentaEfectivo {
+    + calcularTotal(): Double
+}
+
+class VentaTarjeta {
+    - cantidadCuotas: Integer
+    - coeficiente: Double
+    + calcularTotal(): Double
+}
+
+Venta <|-- VentaEfectivo
+Venta <|-- VentaTarjeta
+Venta "1" *-- "*" DetalleVenta
+
+' ─────────────────────────────
+' CLIENTE
+' ─────────────────────────────
+
+class Cliente {
+    - id: Long
+    - nombre: String
+    - apellido: String
+    - email: String
+}
+
+' ─────────────────────────────
+' COMERCIO
+' ─────────────────────────────
+
+class Comercio {
+    - id: Long
+    - nombre: String
+    - ventas: List<Venta>
+    + calcularGananciasPorDia(fecha: Date): Double
+}
+
+Comercio "1" *-- "*" Venta
+Venta --> Cliente
+
+@enduml
