@@ -1,0 +1,35 @@
+@startmindmap
+
+title Tienda Ropita - Planteo del Problema
+
+* Tienda Ropita
+** Prenda
+*** Tipo
+**** Saco
+**** Camisa
+**** Pantalon
+*** Estado
+**** Nueva (precio normal)
+**** Promocion (descuento fijo)
+**** Liquidacion (50% off)
+*** Precio de Venta
+
+** Venta
+*** Fecha de venta
+*** Articulos (prendas + cantidad)
+*** Tipo de pago
+**** Efectivo (sin recargo)
+**** Tarjeta (recargo por cuotas)
+
+** Cliente
+*** Quien compra
+
+** Comercio
+*** Tiene ventas
+*** Calcula ganancias por dia
+
+** Deposito
+*** Stock de cada prenda
+*** Se descuenta al vender
+
+@endmindmap
