@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Memoria del Hilo</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}"/>
+</head>
+<body>
+
+<!-- Encabezado -->
+<header class="header">
+    <div>
+        <h1>La Memoria<br>del Hilo</h1>
+        <div class="divisor"></div>
+        <p class="eslogan">Moda atemporal — Buenos Aires</p>
+    </div>
+    <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:18px; color:#8B6914; max-width:280px; text-align:right; line-height:1.6;">
+        "Cada prenda guarda una historia"
+    </p>
+</header>
+
+<!-- Navegación -->
+<nav class="nav">
+    <a href="/" class="activo">Inicio</a>
+    <a href="/prendas">Prendas</a>
+    <a href="/clientes">Clientes</a>
+    <a href="/ventas">Ventas</a>
+</nav>
+
+<!-- Contenido principal -->
+<main class="main">
+
+    <div style="margin-bottom: 80px;">
+        <h2>Bienvenida</h2>
+        <div class="divisor"></div>
+        <p style="max-width: 480px;">
+            Gestioná tu tienda de moda atemporal desde un solo lugar.
+        </p>
+    </div>
+
+    <!-- Tarjetas de acceso rápido -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+
+        <div class="tarjeta">
+            <p style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8B6914; margin-bottom:16px;">01</p>
+            <h3>Prendas</h3>
+            <div class="divisor"></div>
+            <p style="margin-bottom: 32px;">Administrá el catálogo, precios y stock de cada prenda.</p>
+            <a href="/prendas" class="btn btn-primario">Ver prendas</a>
+        </div>
+
+        <div class="tarjeta">
+            <p style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8B6914; margin-bottom:16px;">02</p>
+            <h3>Clientes</h3>
+            <div class="divisor"></div>
+            <p style="margin-bottom: 32px;">Administrá los clientes de la tienda.</p>
+            <a href="/clientes" class="btn btn-primario">Ver clientes</a>
+        </div>
+
+        <div class="tarjeta">
+            <p style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8B6914; margin-bottom:16px;">03</p>
+            <h3>Ventas</h3>
+            <div class="divisor"></div>
+            <p style="margin-bottom: 32px;">Registrá ventas en efectivo o con tarjeta.</p>
+            <a href="/ventas" class="btn btn-primario">Ver ventas</a>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- Pie de página -->
+<footer class="footer">
+    <p>La Memoria del Hilo — TP Diseño de Sistemas — Escuela Da Vinci</p>
+</footer>
+
+</body>
+</html>

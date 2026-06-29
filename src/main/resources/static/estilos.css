@@ -1,0 +1,283 @@
+/* ─────────────────────────────
+   LA MEMORIA DEL HILO
+   Estilos base — inspiración: e-commerce de lujo
+───────────────────────────────*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&display=swap');
+
+/* Variables */
+:root {
+    --crema: #F5EFE6;
+    --umbral: #EDE0D4;
+    --tinta: #2C1810;
+    --sepia: #5C3D2E;
+    --dorado: #8B6914;
+    --rosa: #8B4A4A;
+    --azul: #3D5A73;
+    --verde: #4A6741;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--crema);
+    color: var(--tinta);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+}
+
+/* ── Tipografía ── */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+}
+
+h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--sepia);
+}
+
+/* ── Header ── */
+.header {
+    background-color: var(--tinta);
+    padding: 48px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.header h1 {
+    color: var(--crema);
+}
+
+.header .eslogan {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--dorado);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ── Navegación ── */
+.nav {
+    background-color: var(--tinta);
+    border-top: 1px solid var(--sepia);
+    padding: 16px 80px;
+    display: flex;
+    gap: 48px;
+}
+
+.nav a {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--umbral);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav a:hover, .nav a.activo {
+    color: var(--dorado);
+}
+
+/* ── Main ── */
+.main {
+    padding: 80px;
+    min-height: 70vh;
+}
+
+/* ── Tarjetas ── */
+.tarjeta {
+    background-color: var(--umbral);
+    border-radius: 2px;
+    padding: 48px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(44,24,16,0.12);
+}
+
+/* ── Botones ── */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border-radius: 2px;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn-primario {
+    background-color: var(--tinta);
+    color: var(--crema);
+}
+
+.btn-dorado {
+    background-color: var(--dorado);
+    color: var(--crema);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--tinta);
+    border: 1px solid var(--tinta);
+}
+
+.btn-peligro {
+    background-color: var(--rosa);
+    color: var(--crema);
+}
+
+/* ── Tabla ── */
+.tabla-contenedor {
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead tr {
+    background-color: var(--tinta);
+    color: var(--crema);
+}
+
+thead th {
+    padding: 16px 24px;
+    text-align: left;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+tbody tr {
+    background-color: var(--umbral);
+    border-bottom: 1px solid var(--crema);
+    transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+    background-color: #E5D5C5;
+}
+
+tbody td {
+    padding: 18px 24px;
+    font-size: 15px;
+    color: var(--tinta);
+}
+
+/* ── Formularios ── */
+.formulario {
+    background-color: var(--umbral);
+    padding: 56px;
+    max-width: 640px;
+    border-radius: 2px;
+}
+
+.campo {
+    margin-bottom: 28px;
+}
+
+.campo label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sepia);
+    margin-bottom: 8px;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    padding: 14px 16px;
+    background-color: var(--crema);
+    border: 1px solid var(--sepia);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    color: var(--tinta);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus {
+    border-color: var(--tinta);
+}
+
+/* ── Badge de estado ── */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+
+.badge-nueva { background-color: var(--verde); color: var(--crema); }
+.badge-promocion { background-color: var(--dorado); color: var(--crema); }
+.badge-liquidacion { background-color: var(--rosa); color: var(--crema); }
+.badge-stock { background-color: var(--verde); color: var(--crema); }
+.badge-sin-stock { background-color: var(--rosa); color: var(--crema); }
+
+/* ── Footer ── */
+.footer {
+    background-color: var(--tinta);
+    padding: 40px 80px;
+    text-align: center;
+}
+
+.footer p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--dorado);
+}
+
+/* ── Divisor ── */
+.divisor {
+    width: 60px;
+    height: 1px;
+    background-color: var(--dorado);
+    margin: 24px 0;
+}
