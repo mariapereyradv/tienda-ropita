@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prendas - La Memoria del Hilo</title>
+    <title>Ventas - La Memoria del Hilo</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" th:href="@{/estilos.css}"/>
 </head>
@@ -13,7 +13,7 @@
 <div class="hero-memoria">
     <div style="display:flex; justify-content:space-between; align-items:flex-end;">
         <div>
-            <p class="numero-pagina">La Memoria del Hilo — 001</p>
+            <p class="numero-pagina">La Memoria del Hilo — 003</p>
             <h1 class="title is-1">La Memoria<br>del Hilo</h1>
             <div class="divisor"></div>
             <p class="eslogan">Moda atemporal — Buenos Aires</p>
@@ -27,9 +27,9 @@
 <!-- Navegación -->
 <div class="nav-oliva">
     <a href="/">Inicio</a>
-    <a href="/prendas" class="activo">Prendas</a>
+    <a href="/prendas">Prendas</a>
     <a href="/clientes">Clientes</a>
-    <a href="/ventas">Ventas</a>
+    <a href="/ventas" class="activo">Ventas</a>
 </div>
 
 <!-- Contenido -->
@@ -37,10 +37,13 @@
 
     <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px;">
         <div>
-            <h2 class="title is-2">Prendas</h2>
+            <h2 class="title is-2">Ventas</h2>
             <div class="divisor"></div>
         </div>
-        <a href="/prendas/nueva" class="button is-warning">+ Nueva prenda</a>
+        <div style="display:flex; gap:12px;">
+            <a href="/ventas/nueva/efectivo" class="button is-primary">+ Efectivo</a>
+            <a href="/ventas/nueva/tarjeta" class="button is-warning">+ Tarjeta</a>
+        </div>
     </div>
 
     <!-- Tabla -->
@@ -48,45 +51,32 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Nombre</th>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
                 <th>Tipo</th>
-                <th>Estado</th>
-                <th>Precio Base</th>
-                <th>Precio Venta</th>
-                <th>Stock</th>
+                <th>Total</th>
                 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="prenda : ${prendas}">
-                <td th:text="${prenda.nombre}"></td>
-                <td th:text="${prenda.tipo}"></td>
-                <td>
-                            <span class="tag is-nueva"
-                                  th:if="${prenda.estado.name() == 'NUEVA'}"
-                                  th:text="${prenda.estado}"></span>
-                    <span class="tag is-promocion"
-                          th:if="${prenda.estado.name() == 'PROMOCION'}"
-                          th:text="${prenda.estado}"></span>
-                    <span class="tag is-liquidacion"
-                          th:if="${prenda.estado.name() == 'LIQUIDACION'}"
-                          th:text="${prenda.estado}"></span>
-                </td>
-                <td th:text="${'$' + prenda.precioBase}"></td>
-                <td th:text="${'$' + prenda.calcularPrecio()}"></td>
+            <tr th:each="venta : ${ventas}">
+                <td th:text="${venta.id}"></td>
+                <td th:text="${venta.cliente != null ? venta.cliente.nombre + ' ' + venta.cliente.apellido : '-'}"></td>
+                <td th:text="${venta.fecha}"></td>
                 <td>
                             <span class="tag is-stock"
-                                  th:if="${prenda.stock > 0}"
-                                  th:text="${prenda.stock}"></span>
-                    <span class="tag is-sin-stock"
-                          th:if="${prenda.stock == 0}">Sin stock</span>
+                                  th:if="${venta.class.simpleName == 'VentaEfectivo'}">Efectivo</span>
+                    <span class="tag is-promocion"
+                          th:if="${venta.class.simpleName == 'VentaTarjeta'}">Tarjeta</span>
                 </td>
+                <td th:text="${'$' + venta.total}"></td>
                 <td>
-                    <a th:href="@{/prendas/editar/{id}(id=${prenda.id})}"
-                       class="button is-light is-small">Editar</a>
-                    <a th:href="@{/prendas/eliminar/{id}(id=${prenda.id})}"
+                    <a th:href="@{/ventas/{id}(id=${venta.id})}"
+                       class="button is-light is-small">Ver</a>
+                    <a th:href="@{/ventas/eliminar/{id}(id=${venta.id})}"
                        class="button is-danger is-small"
-                       onclick="return confirm('¿Eliminás esta prenda?')">Eliminar</a>
+                       onclick="return confirm('¿Eliminás esta venta?')">Eliminar</a>
                 </td>
             </tr>
             </tbody>

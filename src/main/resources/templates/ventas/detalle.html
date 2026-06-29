@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Venta - La Memoria del Hilo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" th:href="@{/estilos.css}"/>
+</head>
+<body>
+
+<!-- Header -->
+<div class="hero-memoria">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+            <p class="numero-pagina">La Memoria del Hilo — 003</p>
+            <h1 class="title is-1">La Memoria<br>del Hilo</h1>
+            <div class="divisor"></div>
+            <p class="eslogan">Moda atemporal — Buenos Aires</p>
+        </div>
+        <p class="eslogan" style="max-width:280px; text-align:right; line-height:1.8;">
+            "Cada prenda guarda una historia"
+        </p>
+    </div>
+</div>
+
+<!-- Navegación -->
+<div class="nav-oliva">
+    <a href="/">Inicio</a>
+    <a href="/prendas">Prendas</a>
+    <a href="/clientes">Clientes</a>
+    <a href="/ventas" class="activo">Ventas</a>
+</div>
+
+<!-- Contenido -->
+<section class="seccion">
+
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px;">
+        <div>
+            <h2 class="title is-2">Detalle de Venta</h2>
+            <div class="divisor"></div>
+        </div>
+        <a href="/ventas" class="button is-light">← Volver</a>
+    </div>
+
+    <div class="box" style="max-width: 640px;">
+
+        <div class="field">
+            <label class="label">ID</label>
+            <p th:text="${venta.id}"></p>
+        </div>
+
+        <div class="divisor"></div>
+
+        <div class="field">
+            <label class="label">Cliente</label>
+            <p th:text="${venta.cliente != null ? venta.cliente.nombre + ' ' + venta.cliente.apellido : '-'}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label">Fecha</label>
+            <p th:text="${venta.fecha}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label">Tipo de venta</label>
+            <span class="tag is-stock"
+                  th:if="${venta.class.simpleName == 'VentaEfectivo'}">Efectivo</span>
+            <span class="tag is-promocion"
+                  th:if="${venta.class.simpleName == 'VentaTarjeta'}">Tarjeta</span>
+        </div>
+
+        <div class="field">
+            <label class="label">Total</label>
+            <p style="font-family:'Playfair Display',serif; font-size:28px; color:#6B7A3E;"
+               th:text="${'$' + venta.total}"></p>
+        </div>
+
+        <div class="divisor"></div>
+
+        <label class="label">Detalle de prendas</label>
+        <table class="table" style="margin-top:16px;">
+            <thead>
+            <tr>
+                <th>Prenda</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="detalle : ${venta.detalles}">
+                <td th:text="${detalle.prenda.nombre}"></td>
+                <td th:text="${detalle.cantidad}"></td>
+                <td th:text="${'$' + detalle.prenda.calcularPrecio()}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
+
+<!-- Footer -->
+<footer style="background-color: #3D2415; padding: 40px 80px; text-align: center; border-top: 4px solid #8B6914;">
+    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: #8B6914;">
+        La Memoria del Hilo — TP Diseño de Sistemas — Escuela Da Vinci
+    </p>
+</footer>
+
+</body>
+</html>

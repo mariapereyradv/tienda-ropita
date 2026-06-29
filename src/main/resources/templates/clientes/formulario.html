@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente - La Memoria del Hilo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" th:href="@{/estilos.css}"/>
+</head>
+<body>
+
+<!-- Header -->
+<div class="hero-memoria">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+            <p class="numero-pagina">La Memoria del Hilo — 002</p>
+            <h1 class="title is-1">La Memoria<br>del Hilo</h1>
+            <div class="divisor"></div>
+            <p class="eslogan">Moda atemporal — Buenos Aires</p>
+        </div>
+        <p class="eslogan" style="max-width:280px; text-align:right; line-height:1.8;">
+            "Cada prenda guarda una historia"
+        </p>
+    </div>
+</div>
+
+<!-- Navegación -->
+<div class="nav-oliva">
+    <a href="/">Inicio</a>
+    <a href="/prendas">Prendas</a>
+    <a href="/clientes" class="activo">Clientes</a>
+    <a href="/ventas">Ventas</a>
+</div>
+
+<!-- Contenido -->
+<section class="seccion">
+
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px;">
+        <div>
+            <h2 class="title is-2"
+                th:text="${cliente.id == null ? 'Nuevo Cliente' : 'Editar Cliente'}"></h2>
+            <div class="divisor"></div>
+        </div>
+        <a href="/clientes" class="button is-light">← Volver</a>
+    </div>
+
+    <div class="box" style="max-width: 640px;">
+        <form th:action="${cliente.id == null ? '/clientes/nuevo' : '/clientes/editar/' + cliente.id}"
+              th:object="${cliente}" method="post">
+
+            <div class="field">
+                <label class="label">Nombre</label>
+                <div class="control">
+                    <input class="input" type="text" th:field="*{nombre}"
+                           placeholder="Ej: María"/>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Apellido</label>
+                <div class="control">
+                    <input class="input" type="text" th:field="*{apellido}"
+                           placeholder="Ej: García"/>
+                </div>
+            </div>
+
+            <div class="field" style="margin-bottom: 32px;">
+                <label class="label">Email</label>
+                <div class="control">
+                    <input class="input" type="email" th:field="*{email}"
+                           placeholder="Ej: maria@email.com"/>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="button is-primary">Guardar</button>
+                <a href="/clientes" class="button is-light">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+
+</section>
+
+<!-- Footer -->
+<footer style="background-color: #3D2415; padding: 40px 80px; text-align: center; border-top: 4px solid #8B6914;">
+    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: #8B6914;">
+        La Memoria del Hilo — TP Diseño de Sistemas — Escuela Da Vinci
+    </p>
+</footer>
+
+</body>
+</html>
