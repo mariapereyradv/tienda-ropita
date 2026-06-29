@@ -1,283 +1,265 @@
-/* ─────────────────────────────
-   LA MEMORIA DEL HILO
-   Estilos base — inspiración: e-commerce de lujo
-───────────────────────────────*/
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&display=swap');
 
-/* Variables */
+/* ── Variables ── */
 :root {
     --crema: #F5EFE6;
+    --fondo-footer: #3D2415;
     --umbral: #EDE0D4;
     --tinta: #2C1810;
     --sepia: #5C3D2E;
     --dorado: #8B6914;
+    --oliva: #6B7A3E;
+    --oliva-claro: #E8EDD8;
+    --oliva-oscuro: #4A5528;
     --rosa: #8B4A4A;
-    --azul: #3D5A73;
-    --verde: #4A6741;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* ── Base ── */
 body {
     font-family: 'Lato', sans-serif;
-    background-color: var(--crema);
-    color: var(--tinta);
+    background-color: var(--crema) !important;
+    color: var(--tinta) !important;
     font-weight: 300;
-    letter-spacing: 0.02em;
 }
 
 /* ── Tipografía ── */
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 72px;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1;
+h1, h2, h3, h4, h5, h6,
+.title, .subtitle {
+    font-family: 'Playfair Display', serif !important;
+    color: var(--tinta) !important;
 }
 
-h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
+.title.is-1 { font-size: 72px !important; font-weight: 900 !important; line-height: 1 !important; }
+.title.is-2 { font-size: 42px !important; }
+.title.is-3 { font-size: 28px !important; }
+.subtitle { color: var(--sepia) !important; font-family: 'Lato', sans-serif !important; }
+
+/* ── Navbar ── */
+.navbar {
+    background-color: var(--crema) !important;
+    border-bottom: 1px solid var(--umbral) !important;
+    padding: 0 80px !important;
 }
 
-h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 400;
+.navbar-brand .navbar-item {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 28px !important;
+    font-weight: 900 !important;
+    color: var(--tinta) !important;
 }
 
-p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--sepia);
+.nav-oliva {
+    background-color: var(--oliva);
+    padding: 10px 80px;
 }
 
-/* ── Header ── */
-.header {
-    background-color: var(--tinta);
-    padding: 48px 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-.header h1 {
-    color: var(--crema);
-}
-
-.header .eslogan {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 15px;
-    color: var(--dorado);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-/* ── Navegación ── */
-.nav {
-    background-color: var(--tinta);
-    border-top: 1px solid var(--sepia);
-    padding: 16px 80px;
-    display: flex;
-    gap: 48px;
-}
-
-.nav a {
+.nav-oliva .navbar-item,
+.nav-oliva a {
     font-family: 'Lato', sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--umbral);
+    color: var(--oliva-claro) !important;
     text-decoration: none;
+    padding: 8px 16px;
     transition: color 0.2s;
 }
 
-.nav a:hover, .nav a.activo {
-    color: var(--dorado);
+.nav-oliva a:hover,
+.nav-oliva a.activo {
+    color: var(--dorado) !important;
 }
 
-/* ── Main ── */
-.main {
-    padding: 80px;
-    min-height: 70vh;
+/* ── Hero/Header ── */
+.hero-memoria {
+    background-color: var(--crema);
+    padding: 56px 80px 40px 80px;
+    border-bottom: 3px solid var(--dorado);
 }
 
-/* ── Tarjetas ── */
-.tarjeta {
-    background-color: var(--umbral);
-    border-radius: 2px;
-    padding: 48px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.tarjeta:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(44,24,16,0.12);
-}
-
-/* ── Botones ── */
-.btn {
-    display: inline-block;
-    padding: 14px 32px;
+.numero-pagina {
     font-family: 'Lato', sans-serif;
     font-size: 12px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.3em;
+    color: var(--dorado);
     text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    border-radius: 2px;
+    margin-bottom: 16px;
 }
 
-.btn:hover { opacity: 0.85; }
-
-.btn-primario {
-    background-color: var(--tinta);
-    color: var(--crema);
-}
-
-.btn-dorado {
-    background-color: var(--dorado);
-    color: var(--crema);
-}
-
-.btn-outline {
-    background-color: transparent;
-    color: var(--tinta);
-    border: 1px solid var(--tinta);
-}
-
-.btn-peligro {
-    background-color: var(--rosa);
-    color: var(--crema);
-}
-
-/* ── Tabla ── */
-.tabla-contenedor {
-    overflow: hidden;
-    border-radius: 2px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-thead tr {
-    background-color: var(--tinta);
-    color: var(--crema);
-}
-
-thead th {
-    padding: 16px 24px;
-    text-align: left;
-    font-family: 'Lato', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 400;
-}
-
-tbody tr {
-    background-color: var(--umbral);
-    border-bottom: 1px solid var(--crema);
-    transition: background-color 0.2s;
-}
-
-tbody tr:hover {
-    background-color: #E5D5C5;
-}
-
-tbody td {
-    padding: 18px 24px;
-    font-size: 15px;
-    color: var(--tinta);
-}
-
-/* ── Formularios ── */
-.formulario {
-    background-color: var(--umbral);
-    padding: 56px;
-    max-width: 640px;
-    border-radius: 2px;
-}
-
-.campo {
-    margin-bottom: 28px;
-}
-
-.campo label {
-    display: block;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--sepia);
-    margin-bottom: 8px;
-}
-
-.campo input,
-.campo select {
-    width: 100%;
-    padding: 14px 16px;
-    background-color: var(--crema);
-    border: 1px solid var(--sepia);
-    border-radius: 2px;
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-    color: var(--tinta);
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.campo input:focus,
-.campo select:focus {
-    border-color: var(--tinta);
-}
-
-/* ── Badge de estado ── */
-.badge {
-    display: inline-block;
-    padding: 4px 12px;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border-radius: 2px;
-}
-
-.badge-nueva { background-color: var(--verde); color: var(--crema); }
-.badge-promocion { background-color: var(--dorado); color: var(--crema); }
-.badge-liquidacion { background-color: var(--rosa); color: var(--crema); }
-.badge-stock { background-color: var(--verde); color: var(--crema); }
-.badge-sin-stock { background-color: var(--rosa); color: var(--crema); }
-
-/* ── Footer ── */
-.footer {
-    background-color: var(--tinta);
-    padding: 40px 80px;
-    text-align: center;
-}
-
-.footer p {
+.eslogan {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 14px;
+    font-size: 18px;
     color: var(--dorado);
+    letter-spacing: 0.1em;
 }
 
 /* ── Divisor ── */
 .divisor {
     width: 60px;
-    height: 1px;
-    background-color: var(--dorado);
-    margin: 24px 0;
+    height: 2px;
+    background-color: var(--oliva);
+    margin: 20px 0;
+}
+
+/* ── Cards Bulma ── */
+.card {
+    border-radius: 2px !important;
+    border-top: 3px solid var(--oliva) !important;
+    background-color: var(--umbral) !important;
+    box-shadow: 0 2px 12px rgba(44,24,16,0.06) !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 40px rgba(44,24,16,0.12) !important;
+}
+
+.card-content { background-color: var(--umbral) !important; }
+
+/* ── Botones Bulma ── */
+.button.is-primary {
+    background-color: var(--oliva) !important;
+    border-color: var(--oliva) !important;
+    color: var(--crema) !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    border-radius: 2px !important;
+}
+
+.button.is-warning {
+    background-color: var(--dorado) !important;
+    border-color: var(--dorado) !important;
+    color: var(--crema) !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    border-radius: 2px !important;
+}
+
+.button.is-danger {
+    background-color: var(--rosa) !important;
+    border-color: var(--rosa) !important;
+    color: var(--crema) !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    border-radius: 2px !important;
+}
+
+.button.is-light {
+    background-color: transparent !important;
+    border: 1px solid var(--tinta) !important;
+    color: var(--tinta) !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    border-radius: 2px !important;
+}
+
+/* ── Tabla Bulma ── */
+.table {
+    background-color: var(--umbral) !important;
+    color: var(--tinta) !important;
+    width: 100% !important;
+}
+
+.table thead th {
+    background-color: var(--oliva) !important;
+    color: var(--crema) !important;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px !important;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 400 !important;
+    border: none !important;
+    padding: 16px 24px !important;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--crema) !important;
+    transition: background-color 0.2s;
+}
+
+.table tbody tr:hover {
+    background-color: var(--oliva-claro) !important;
+}
+
+.table tbody td {
+    padding: 16px 24px !important;
+    border: none !important;
+    color: var(--tinta) !important;
+    vertical-align: middle !important;
+}
+
+/* ── Formularios Bulma ── */
+.box {
+    background-color: var(--umbral) !important;
+    border-radius: 2px !important;
+    border-top: 3px solid var(--oliva) !important;
+    box-shadow: none !important;
+    padding: 48px !important;
+}
+
+.label {
+    font-family: 'Lato', sans-serif !important;
+    font-size: 11px !important;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--oliva-oscuro) !important;
+}
+
+.input, .select select {
+    background-color: var(--crema) !important;
+    border: 1px solid var(--umbral) !important;
+    border-bottom: 2px solid var(--oliva) !important;
+    border-radius: 2px !important;
+    color: var(--tinta) !important;
+    font-family: 'Lato', sans-serif !important;
+    box-shadow: none !important;
+}
+
+.input:focus, .select select:focus {
+    border-bottom-color: var(--dorado) !important;
+    box-shadow: none !important;
+}
+
+.select::after {
+    border-color: var(--oliva) !important;
+}
+
+/* ── Badges ── */
+.tag.is-nueva { background-color: var(--oliva) !important; color: var(--crema) !important; }
+.tag.is-promocion { background-color: var(--dorado) !important; color: var(--crema) !important; }
+.tag.is-liquidacion { background-color: var(--rosa) !important; color: var(--crema) !important; }
+.tag.is-stock { background-color: var(--oliva) !important; color: var(--crema) !important; }
+.tag.is-sin-stock { background-color: var(--rosa) !important; color: var(--crema) !important; }
+
+.tag {
+    border-radius: 2px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ── Footer ── */
+.fondo-footer {
+    background-color: #3D2415 !important;
+    border-top: 4px solid var(--dorado) !important;
+    padding: 40px 80px !important;
+}
+
+.footer p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--dorado);
+}
+
+/* ── Main ── */
+.seccion {
+    padding: 64px 80px;
+    min-height: 70vh;
 }
