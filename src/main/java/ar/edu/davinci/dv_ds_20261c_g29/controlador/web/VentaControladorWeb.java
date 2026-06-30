@@ -1,6 +1,5 @@
 package ar.edu.davinci.dv_ds_20261c_g29.controlador.web;
 
-import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.Cliente;
 import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.DetalleVenta;
 import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.VentaEfectivo;
 import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.VentaTarjeta;
@@ -87,15 +86,31 @@ public class VentaControladorWeb {
         return "ventas/formulario-tarjeta";
     }
 
-    // Guarda la venta con tarjeta
     @PostMapping("/nueva/tarjeta")
     public String guardarTarjeta(
-            @ModelAttribute VentaTarjeta venta,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha,
-            @RequestParam Long clienteId) {
+            @RequestParam Long clienteId,
+            @RequestParam Integer cantidadCuotas,
+            @RequestParam(required = false) List<Long> prendaIds,
+            @RequestParam(required = false) List<Integer> cantidades) {
+
+        VentaTarjeta venta = new VentaTarjeta();
         venta.setFecha(fecha);
-        Cliente cliente = clienteServicio.obtenerPorId(clienteId);
-        venta.setCliente(cliente);
+        venta.setCliente(clienteServicio.obtenerPorId(clienteId));
+        venta.setCantidadCuotas(cantidadCuotas);
+
+        List<DetalleVenta> detalles = new ArrayList<>();
+        if (prendaIds != null) {
+            for (int i = 0; i < prendaIds.size(); i++) {
+                if (prendaIds.get(i) != null) {
+                    DetalleVenta detalle = new DetalleVenta();
+                    detalle.setPrenda(prendaServicio.obtenerPorId(prendaIds.get(i)));
+                    detalle.setCantidad(cantidades.get(i));
+                    detalles.add(detalle);
+                }
+            }
+        }
+        venta.setDetalles(detalles);
         ventaServicio.guardar(venta);
         return "redirect:/ventas";
     }

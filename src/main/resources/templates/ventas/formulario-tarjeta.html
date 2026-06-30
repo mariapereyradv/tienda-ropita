@@ -43,9 +43,8 @@
         <a href="/ventas" class="button is-light">← Volver</a>
     </div>
 
-    <div class="box" style="max-width: 640px;">
-        <form th:action="'/ventas/nueva/tarjeta'"
-              th:object="${venta}" method="post">
+    <div class="box" style="max-width: 760px;">
+        <form th:action="'/ventas/nueva/tarjeta'" method="post">
 
             <div class="field">
                 <label class="label">Cliente</label>
@@ -71,27 +70,53 @@
             <div class="field">
                 <label class="label">Cantidad de cuotas</label>
                 <div class="control">
-                    <input class="input" type="number"
-                           th:field="*{cantidadCuotas}"
-                           placeholder="Ej: 3"/>
+                    <input class="input" type="number" name="cantidadCuotas"
+                           placeholder="Ej: 3" min="1"/>
                 </div>
             </div>
 
-            <div class="field" style="margin-bottom: 32px;">
-                <label class="label">Prendas</label>
-                <div class="control">
-                    <div class="select is-fullwidth">
-                        <select name="prendaId">
-                            <option value="">Seleccioná una prenda</option>
-                            <option th:each="prenda : ${prendas}"
-                                    th:value="${prenda.id}"
-                                    th:text="${prenda.nombre + ' - $' + prenda.precioBase}"></option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+            <div class="divisor"></div>
 
-            <div class="buttons">
+            <!-- Tabla de prendas -->
+            <label class="label" style="margin-bottom:16px;">Prendas</label>
+
+            <table class="table" style="margin-bottom:16px;">
+                <thead>
+                <tr>
+                    <th>Prenda</th>
+                    <th>Cantidad</th>
+                    <th>Quitar</th>
+                </tr>
+                </thead>
+                <tbody id="cuerpoDetalles">
+                <tr id="fila-0">
+                    <td>
+                        <div class="select is-fullwidth">
+                            <select name="prendaIds">
+                                <option value="">Seleccioná</option>
+                                <option th:each="prenda : ${prendas}"
+                                        th:value="${prenda.id}"
+                                        th:text="${prenda.nombre + ' - $' + prenda.precioBase}"></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="input" type="number" name="cantidades" value="1" min="1"/>
+                    </td>
+                    <td>
+                        <button type="button" class="button is-danger is-small"
+                                onclick="quitarFila('fila-0')">✕</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <button type="button" class="button is-light" style="margin-bottom:32px;"
+                    onclick="agregarFila()">+ Agregar prenda</button>
+
+            <div class="divisor"></div>
+
+            <div class="buttons" style="margin-top:24px;">
                 <button type="submit" class="button is-primary">Guardar venta</button>
                 <a href="/ventas" class="button is-light">Cancelar</a>
             </div>
@@ -107,6 +132,46 @@
         La Memoria del Hilo — TP Diseño de Sistemas — Escuela Da Vinci
     </p>
 </footer>
+
+<script>
+    let contadorFilas = 1;
+
+    function agregarFila() {
+        const tbody = document.getElementById('cuerpoDetalles');
+        const idFila = 'fila-' + contadorFilas;
+
+        let opciones = '<option value="">Seleccioná</option>';
+        document.querySelector('#fila-0 select').querySelectorAll('option').forEach(opt => {
+            if (opt.value) opciones += `<option value="${opt.value}">${opt.text}</option>`;
+        });
+
+        const fila = `
+            <tr id="${idFila}">
+                <td>
+                    <div class="select is-fullwidth">
+                        <select name="prendaIds">${opciones}</select>
+                    </div>
+                </td>
+                <td>
+                    <input class="input" type="number" name="cantidades" value="1" min="1"/>
+                </td>
+                <td>
+                    <button type="button" class="button is-danger is-small"
+                            onclick="quitarFila('${idFila}')">✕</button>
+                </td>
+            </tr>`;
+
+        tbody.insertAdjacentHTML('beforeend', fila);
+        contadorFilas++;
+    }
+
+    function quitarFila(idFila) {
+        const fila = document.getElementById(idFila);
+        if (document.querySelectorAll('#cuerpoDetalles tr').length > 1) {
+            fila.remove();
+        }
+    }
+</script>
 
 </body>
 </html>
