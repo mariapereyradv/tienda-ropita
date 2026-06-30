@@ -2,7 +2,7 @@ package ar.edu.davinci.dv_ds_20261c_g29.servicio.interfaz;
 
 import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.Venta;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface VentaServicio {
@@ -18,5 +18,5 @@ public interface VentaServicio {
     void eliminar(Long id);
 
     // Calcula las ganancias de un dia especifico
-    Double calcularGananciasPorDia(Date fecha);
+    Double calcularGananciasPorDia(LocalDate fecha);
 }

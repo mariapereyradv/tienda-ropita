@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -25,7 +25,7 @@ public class Comercio {
     private List<Venta> ventas;
 
     // Calcula las ganancias de un dia especifico
-    public Double calcularGananciasPorDia(Date fecha) {
+    public Double calcularGananciasPorDia(LocalDate fecha) {
         return ventas.stream()
                 .filter(venta -> venta.getFecha().equals(fecha))
                 .mapToDouble(Venta::calcularTotal)

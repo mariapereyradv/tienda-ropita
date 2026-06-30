@@ -1,14 +1,21 @@
 package ar.edu.davinci.dv_ds_20261c_g29.controlador.web;
 
+import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.Cliente;
+import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.DetalleVenta;
 import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.VentaEfectivo;
 import ar.edu.davinci.dv_ds_20261c_g29.dominio.entidad.VentaTarjeta;
 import ar.edu.davinci.dv_ds_20261c_g29.servicio.interfaz.ClienteServicio;
 import ar.edu.davinci.dv_ds_20261c_g29.servicio.interfaz.PrendaServicio;
 import ar.edu.davinci.dv_ds_20261c_g29.servicio.interfaz.VentaServicio;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/ventas")
@@ -44,7 +51,29 @@ public class VentaControladorWeb {
 
     // Guarda la venta en efectivo
     @PostMapping("/nueva/efectivo")
-    public String guardarEfectivo(@ModelAttribute VentaEfectivo venta) {
+    public String guardarEfectivo(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha,
+            @RequestParam Long clienteId,
+            @RequestParam(required = false) List<Long> prendaIds,
+            @RequestParam(required = false) List<Integer> cantidades) {
+
+        VentaEfectivo venta = new VentaEfectivo();
+        venta.setFecha(fecha);
+        venta.setCliente(clienteServicio.obtenerPorId(clienteId));
+
+        // Armamos la lista de detalles
+        List<DetalleVenta> detalles = new ArrayList<>();
+        if (prendaIds != null) {
+            for (int i = 0; i < prendaIds.size(); i++) {
+                if (prendaIds.get(i) != null) {
+                    DetalleVenta detalle = new DetalleVenta();
+                    detalle.setPrenda(prendaServicio.obtenerPorId(prendaIds.get(i)));
+                    detalle.setCantidad(cantidades.get(i));
+                    detalles.add(detalle);
+                }
+            }
+        }
+        venta.setDetalles(detalles);
         ventaServicio.guardar(venta);
         return "redirect:/ventas";
     }
@@ -60,7 +89,13 @@ public class VentaControladorWeb {
 
     // Guarda la venta con tarjeta
     @PostMapping("/nueva/tarjeta")
-    public String guardarTarjeta(@ModelAttribute VentaTarjeta venta) {
+    public String guardarTarjeta(
+            @ModelAttribute VentaTarjeta venta,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha,
+            @RequestParam Long clienteId) {
+        venta.setFecha(fecha);
+        Cliente cliente = clienteServicio.obtenerPorId(clienteId);
+        venta.setCliente(cliente);
         ventaServicio.guardar(venta);
         return "redirect:/ventas";
     }

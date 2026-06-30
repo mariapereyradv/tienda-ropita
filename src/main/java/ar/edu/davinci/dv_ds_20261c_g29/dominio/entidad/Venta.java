@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,8 +20,7 @@ public abstract class Venta {
     private Long id;
 
     // Fecha en que se realizó la venta
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private LocalDate fecha;
 
     // Cliente que realizó la compra
     @ManyToOne
@@ -30,7 +30,7 @@ public abstract class Venta {
     // Lista de prendas vendidas con su cantidad
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "venta_id")
-    private List<DetalleVenta> detalles;
+    private List<DetalleVenta> detalles = new ArrayList<>();
 
     // Total de la venta
     private Double total;
